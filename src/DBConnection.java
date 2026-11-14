@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,26 +9,23 @@ public class DBConnection {
 
     private static final String USER = "root";
 
-    private static final String PASSWORD = System.getenv("CANTEEN_DB_PASSWORD");
-
     public static Connection getConnection() {
+        String password = System.getenv("CANTEEN_DB_PASSWORD");
+        if (password == null || password.isBlank()) {
+            System.err.println(
+                    "Database password is not configured. Set CANTEEN_DB_PASSWORD in this IntelliJ run configuration."
+            );
+            return null;
+        }
 
         try {
-
-            Connection con = DriverManager.getConnection(
-                    URL, USER, PASSWORD
+            Connection connection = DriverManager.getConnection(
+                    URL, USER, password
             );
-
             System.out.println("Database Connected Successfully!");
-
-            return con;
-
+            return connection;
         } catch (SQLException e) {
-
-            System.out.println("Database Connection Failed!");
-
-            e.printStackTrace();
-
+            System.err.println("Database Connection Failed: " + e.getMessage());
             return null;
         }
     }
