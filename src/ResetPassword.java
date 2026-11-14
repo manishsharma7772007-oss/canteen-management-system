@@ -474,51 +474,17 @@ public class ResetPassword extends JFrame {
             }
 
 
-            // ================= ADMIN =================
+            if (!UserDAO.updatePassword(username, newPassword, role)) {
 
-            if (role.equals("Admin")) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Could not update the password. Check the username, role, and database connection.",
+                        "Reset Password Failed",
+                        JOptionPane.ERROR_MESSAGE
+                );
 
-                if (!username.equals("admin")) {
-
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Admin username not found!",
-                            "Reset Password",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-
-                    return;
-                }
-
-
-                // Change Admin Password
-                Login.adminPassword =
-                        newPassword;
+                return;
             }
-
-
-            // ================= STUDENT =================
-
-            else {
-
-                if (!username.equals("student")) {
-
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Student username not found!",
-                            "Reset Password",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-
-                    return;
-                }
-
-
-                // Change Student Password
-                Login.studentPassword =
-                        newPassword;
-            }
-
 
             // ================= SUCCESS =================
 
