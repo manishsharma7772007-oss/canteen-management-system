@@ -10,10 +10,6 @@ public class Login extends JFrame {
     private JComboBox<String> roleBox;
     private JButton btnLogin, btnReset;
 
-    // Temporary variables for existing ResetPassword.java
-    public static String adminPassword = "admin123";
-    public static String studentPassword = "student123";
-
     public Login() {
 
         // ================= WINDOW =================
