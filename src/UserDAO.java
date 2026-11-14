@@ -6,6 +6,29 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
+    public static boolean updatePassword(
+            String username,
+            String newPassword,
+            String role) {
+
+        String sql = "UPDATE users SET password = ? WHERE username = ? AND role = ?";
+
+        try (Connection con = DBConnection.getConnection()) {
+            if (con == null) {
+                return false;
+            }
+
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, newPassword);
+                ps.setString(2, username);
+                ps.setString(3, role);
+                return ps.executeUpdate() > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static boolean authenticate(
             String username,
             String password,
